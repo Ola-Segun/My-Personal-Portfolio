@@ -1,0 +1,17 @@
+{% extends 'myAdmin/base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}Delete{% endblock %}
+{% block content %}
+
+<h1>{% trans 'Delete selected item?' %} </h1>
+<p>{% trans 'Are you sure you want to delete this item?' %}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">{% trans 'Yes, delete' %}</button>
+    <a href="{% url 'adminHomePage' %}" class="btn btn-secondary">{% trans 'Cancel' %}</a>
+</form>
+
+{% endblock %}

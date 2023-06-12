@@ -1,0 +1,255 @@
+{% load static %}
+{% load portfolio_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/style.css' %}">
+    <link rel="stylesheet" href="{% static '/mobileNav.css' %}">
+    <link rel="stylesheet" href="{% static '/desktopNav.css' %}">
+    <link rel="stylesheet" href="{% static '/footer.css' %}">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sirin+Stencil&display=swap" rel="stylesheet">
+    <title>portfolio-cc</title>
+</head>
+
+<style>
+    circle{
+        fill: #D9D9D9;
+        transition: .3s;
+    }
+    circle:hover{
+        fill: #1E3050;
+    }
+</style>
+
+<body class="desktop">
+    <nav class="">
+        <div class="menuToggle"></div>
+        <div class="navCon">
+            
+            <a href="#" class="logo">
+                <h1>Dev X</h1>
+            </a >
+            <ul>
+                <li class="navM home active"><a href="#home">Home</a></li>
+                <li class="navM skills"><a href="#skills">Skills</a></li>
+                <li class="navM projects"><a href="#projects">Projects</a></li>
+                <li class="navM contacts"><a href="#contacts">Contacts</a></li>
+                <li id="login-show" class="navM" >
+                        <svg class="user" width="40" height="30" viewBox="0 0 114 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="57" cy="33" r="33" fill="#D9D9D9"/>
+                            <path d="M0 133C0 101.52 25.5198 76 57 76V76C88.4802 76 114 101.52 114 133V160H0V133Z" fill="#1E3050"/>
+                        </svg>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <ul class="dots">
+        <a href="#home"><li class="dot home activeDot"></li></a>
+        <a href="#skills"><li class="dot skills"></li></a>
+        <a href="#projects"><li class="dot projects"></li></a>
+        <a href="#contacts"><li class="dot contacts"></li></a>
+        <!-- <a href="#"><li class="dot footer"></li></a> -->
+    </ul>
+    <main class="main">
+        {% if user.is_authenticated %}
+        <div class="admin">
+            <ul>
+                <a href="{% url 'adminHomePage' %}"  style="display: grid; color: inherit; text-decoration: none;">
+                    <li class="navM inbox flex">
+                        <div>
+                            <h3><i class="fa-solid fa-user-shield"></i></h3>
+                            <div class="num">{% new_message %}</div>
+                        </div>
+                    </li>
+                    Admin
+                </a>
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- LOGIN MODAL -->
+
+        {% include "base/loginModal.html" %}
+
+        <!-- END LOGIN MODAL -->
+
+        <div class="container">
+            <!-- HOME -->
+            <section id="home" class="">
+                <div class="page one flex flex-wrap">
+                    <!-- <div class="image">
+                        <img src="{% static 'joshua-oyebanji-LEB4O4n0IdQ-unsplash_cropped1.jpg' %}" alt="" class="profile-picture">
+                    </div> -->
+
+                    <div class="image">
+                        {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="" class="profile-picture">
+                        {% endif %}
+                    </div>
+
+                    <div class="grid intro">
+                        <h2 class="intro-title">Hi, i'm Paul</h2>
+                        <div class="intro-body">
+                            <h1>I am a fullstack developer </h1>
+                        </div>
+                        <a href="#contacts" class="button">
+                            <span class="icon">
+                                <i class="fa-regular fa-message"></i>
+                            </span> 
+                            <span class="text">Let's talk</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section id="skills" class=" skills page two grid">
+                <h1 style="justify-self: center;">skills</h1>
+                <div class="page two grid"></div>
+                <div class="skills-container flex flex-wrap">
+                    <div class="skills fontend">
+                        <div class="skills-head flex">
+                            <h2><i class="fas light fa-laptop-code"></i></h2>
+                            </div>
+                        <div class="skills-body grid">
+                            <ul>
+                                {% for skills in frontSkills %}
+                                <li>{{skills.name}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="skills backend">
+                        <div class="skills-head flex">
+                            <h2>
+                                <!-- <i class="fa-solid fa-server"></i> -->
+                                <i class="fa-solid fa-database"></i>
+                            </h2>
+                        </div>
+                        <div class="skills-body grid">
+                            <ul>
+                                {% for skills in backSkills %}
+                                <li>{{skills.name}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="skills tools">
+                        <div class="skills-head flex">
+                            <h2><i class="fa-solid fa-gears"></i></h2>
+
+                        </div>
+                        <div class="skills-body grid">
+                            <ul>
+                                {% for frame in frames %}
+                                <li>{{frame.name}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <section id="projects" class="page two grid">
+                <div class="project-container flex flex-wrap">
+                    <h1>Projects</h1>
+                    {% for project in projects %}
+                    <div class="project-card" id="myDiv">
+                        {% if project.frontPageImage %}
+                        <div class="project-img">
+                            <img src="{{ project.frontPageImage.url }}" alt="">
+                        </div>
+                        {% endif %}
+                        <div class="project-details grid">
+                            <div class="project-title">
+                                <h4>{{ project.title }}</h4>
+                            </div>
+                            <div>
+                                <p>{{project.overview}}</p>
+                            </div>
+                            <div class="project-links flex">
+                                <a href="#"><h2><i class="fa-brands fa-github"></i></h2></a>
+                                <a href="#"><h2><i class="fa-solid fa-link"></i></h2></a>
+                                <a href="{% url 'projectPage' project.slug %}"><h2><i class="fa-regular fa-eye"></i></h2></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% include "base/pagination.html" %}
+                </div>
+
+            </section>
+            <section id="contacts" class=" grid">
+                <div class="contactCon">
+                    <form method="post" >
+                        {% csrf_token %}
+                        <div class="form-prop grid">
+                            {{form.name}}
+                            {{form.email}}
+                            {{form.subject}}  
+                        </div>
+                        {{form.body}}
+                        <button type="submit" style="height: 50px;">Send</button>
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li class="{{ messages.tags }} alert alert-dismissible fade show" style="list-style: none;">
+                                {{ message|safe }}
+                                <a href="" class="btn-close">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </form>
+                </div>
+            </section>
+        </div>
+        <!-- <footer class="flex">
+                <div class="reach grid">
+                    <a href="#" class="footer-logo">
+                        <h1>Dev X</h1>
+                    </a>
+                    <ul class="footer-links">
+                        <li class="navM-home active"><a href="#home">Home</a></li>
+                        <li class="navM-skills"><a href="#skills">Skills</a></li>
+                        <li class="navM-projects"><a href="#projects">Projects</a></li>
+                        <li class="navM-contacts"><a href="#contacts">Contacts</a></li>
+                    </ul>
+                    <div class="outer-links flex">
+                        <a href="#"><h2><i class="fa-brands fa-github"></i></h2></a>
+                        <a href="#"><h2><i class="fa-brands fa-whatsapp"></i></h2></a>
+                        <a href="#"><h2><i class="fa-solid fa-envelope"></i></h2></a>
+                        <a href="#"><h2><i class="fa-brands fa-facebook"></i></h2></a>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 Dev X. All rights reserved.</p>
+                </div>
+                <div class="signup grid">
+                    <h4>Visit my Blog <a href="#">Dev X_Blg</a></h4>
+                    <form action="" class="flex">
+                        <input type="email" placeholder="Email address">
+                        <button>Signup</button>
+                    </form>
+                </div>
+        </footer> -->
+    </main>
+{% block javascript %}
+    <script src="{% static '/script.js' %}"></script>
+    <script src="{% static 'https://kit.fontawesome.com/17d1b0692a.js' %}" crossorigin="anonymous"></script>
+{% endblock %}
+</body>
+</html>

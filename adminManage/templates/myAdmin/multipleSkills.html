@@ -1,0 +1,36 @@
+{% extends 'myAdmin/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Skills Action{% endblock %}
+{% block content %}
+<style>
+    .flex{
+        display: flex;
+    }
+    .grid{
+        display: grid;
+        margin: 20px;
+        gap: 10px;
+    }
+</style>
+
+<div class="flex">
+    <div class="grid">
+        <a href="{% url 'addfrontEndSkills' %}" class="btn btn-primary" style="text-decoration: none; ">Add Front End Skills</a>
+        <a href="{% url 'editfrontEndSkills' %}" class="btn btn-warning" style="text-decoration: none; ">Edit Front End Skills</a>
+        <a href="{% url 'deletefrontEndSkills' %}" class="btn btn-danger" style="text-decoration: none; ">Delete Front End Skills</a>
+    </div>
+    <div class="grid">
+        <a href="{% url 'addBackEndSkills' %}" class="btn btn-primary" style="text-decoration: none; ">Add Back End Skills</a>
+        <a href="{% url 'editBackEndSkills' %}" class="btn btn-warning" style="text-decoration: none; ">Edit Back End Skills</a>
+        <a href="{% url 'deleteBackEndSkills' %}" class="btn btn-danger" style="text-decoration: none; ">Delete Back End Skills</a>
+    </div>
+    <div class="grid">
+        <a href="{% url 'addFrameWorksSkills' %}" class="btn btn-primary" style="text-decoration: none; ">Add FrameWorks</a>
+        <a href="{% url 'editFrameWorksSkills' %}" class="btn btn-warning" style="text-decoration: none; ">Edit FrameWorks</a>
+        <a href="{% url 'deleteFrameWorksSkills' %}" class="btn btn-danger" style="text-decoration: none; ">Delete FrameWorks</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% load static %}
+<link href="{% static '/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+<div class="container" style="display: flex; justify-content: center; margin:0;">
+    <ul class="pagination">
+      <li class="page-item">
+        {% if projects.has_previous %}
+        <a class="page-link" href="?page={{ projects.previous_page_number }}" aria-label="Previous" onclick="loadProjects(event)">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+        {% endif %}
+      </li>
+      {% for num in projects.paginator.page_range %}
+      <li class="page-item {% if num == projects.number %} active {% endif %}">
+        <a class="page-link" href="?page={{ num }}" onclick="loadProjects(event)">{{ num }}</a>
+      </li>
+      {% endfor %}
+      <li class="page-item">
+        {% if projects.has_next %}
+        <a class="page-link" href="?page={{ projects.next_page_number }}" aria-label="Next" onclick="loadProjects(event)">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  function loadProjects(event) {
+    event.preventDefault(); // prevent default link behavior
+
+    // get the URL of the clicked page link
+    const url = event.target.href;
+
+    // send a GET request to the URL
+    fetch(url)
+      .then(response => response.text()) // parse response as text
+      .then(html => {
+        // create a temporary div element to hold the parsed HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+        // find the project container in the parsed HTML
+        const projectContainer = tempDiv.querySelector('.project-container');
+
+        // replace the current project container with the new one
+        const currentProjectContainer = document.querySelector('.project-container');
+        currentProjectContainer.innerHTML = projectContainer.innerHTML;
+
+        // update the URL in the address bar
+        window.history.pushState({}, '', url);
+      })
+      .catch(error => console.error(error));
+  }
+</script> 
+
+<!-- <div class="container" style="display: flex; justify-content: center; margin:0;">
+    <ul class="pagination">
+      <li class="page-item">
+        {% if projects.has_previous %}
+        <a class="page-link" href="?page={{ projects.previous_page_number }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+        {% endif %}
+      </li>
+      {% for num in projects.paginator.page_range %}
+      <li class="page-item {% if num == projects.number %} active{% endif %}">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+        {% endfor %}
+      <li class="page-item">
+        {% if projects.has_next %}
+        <a class="page-link" href="?page={{ projects.next_page_number }}"aria-label="Next" >
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+        {% endif %}
+      </li>
+    </ul>
+</div>
+
+
+<div class="container" style="display: flex; justify-content: center; margin:0;">
+    <ul class="pagination">
+      <li class="page-item">
+        {% if projects.has_previous %}
+        <a class="page-link" href="?page={{ projects.previous_page_number }}" aria-label="Previous" onclick="loadProjects(event)">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+        {% endif %}
+      </li>
+      {% for num in projects.paginator.page_range %}
+      <li class="page-item {% if num == projects.number %} active{% endif %}">
+        <a class="page-link" href="?page={{ num }}" onclick="loadProjects( event )">{{ num }}</a>
+      </li>
+      {% endfor %}
+      <li class="page-item">
+        {% if projects.has_next %}
+        <a class="page-link" href="?page={{ projects.next_page_number }}" aria-label="Next" onclick="loadProjects(event)">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+
+<script>
+    function loadProjects(event) {
+        event.preventDefault();
+        var url = event.target.href; // Get the URL of the clicked pagination link
+        fetch(url) // Fetch the updated project data from the server
+          .then(response => response.text())
+          .then(data => {
+            var projectContainer = document.querySelector('.project-container');
+            projectContainer.innerHTML = data; // Replace the existing project content with the new data
+          })
+          .catch(error => console.error(error));
+      }
+</script> -->

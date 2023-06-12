@@ -1,0 +1,45 @@
+{% load static %}
+<link rel="stylesheet" href="{% static '/style.css' %}">
+
+
+        <!-- LOGIN MODAL -->
+
+        <div id="login-modal" class="login-modal hidden">
+            <div class="custom-modal">
+                <div class="top-form">
+                    <div id="close-modal" class="close-modal">
+                        &#10006
+                    </div>
+                </div>
+                <div class="login-form">
+                    <h2>Admin</h2>
+                    <form class="form-input" method="post">
+                        {% csrf_token %}
+                        {{ login_form.as_p }}
+
+                        <button type="submit">Login</button>
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li class="{{ messages.tags }} alert alert-dismissible fade show" style="list-style: none;">
+                                {{ message|safe }}
+                                <a href="" class="btn-close">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- END LOGIN MODAL -->
+
+
+{% block javascript %}
+<script src="{% static '/script.js' %}"></script>
+<script src="{% static 'https://kit.fontawesome.com/17d1b0692a.js' %}" crossorigin="anonymous"></script>
+{% endblock %}
+

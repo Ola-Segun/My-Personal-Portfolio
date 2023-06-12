@@ -1,0 +1,129 @@
+{% load static %}
+
+<style>
+    /* LOGIN MODAL FORM */
+
+#login-show{
+    transition: .5s;
+}
+
+#login-modal{
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    background: rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+}
+
+.hidden{
+    display: none; 
+    opacity: 0;
+    visibility: hidden;
+    transition: .5s;
+}
+
+
+.confirm-delete{
+    width: 400px;
+    border-radius: 15px;
+    height: fit-content;
+    background-color: rgb(255, 255, 255);
+}
+
+.top-form{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-modal{
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.login-form{
+    display: grid;
+    justify-items: center;
+}
+
+.login-form h2{
+    margin: 10px;
+}
+
+.form-body{
+    display: grid;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form-body .form-control{
+    height: 50px;
+    width: 300px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: medium;
+    border: solid 1px #808080;
+}
+
+.form-body button{
+    margin-bottom: 20px;
+    padding: 10px;
+    border: none;
+    box-shadow: 1px 1px 4px #cccccc;
+    background: #6effafa1;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.form-body button:hover{
+    background: #6effaf;
+}
+
+
+</style>
+
+<link href="{% static '/assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <div class="admin" id="login-show">
+        <ul>
+            <a class="btn btn-danger">Delete</a>
+        </ul>
+    </div>
+    <div id="login-modal" class="login-modal hidden">
+        <div class="confirm-delete">
+            <div class="top-form">
+                <div id="close-modal" class="close-modal">
+                    &#10006
+                </div>
+            </div>
+            <div class="login-form">
+                <h2>Confirm Delete</h2>
+                <form class="form-body" action="">
+                    <button href="{% url 'deleteBackEndSkills' Backend.slug %}">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // MODAL DISPLAY
+
+        const login_show = document.getElementById('login-show');
+        const login_modal = document.getElementById('login-modal');
+        const close_modal = document.getElementById('close-modal');
+
+        login_show.onclick = function(){
+            login_modal.classList.remove('hidden')
+        }
+        close_modal.onclick = function(){
+            login_modal.classList.add('hidden')
+        }
+    </script>

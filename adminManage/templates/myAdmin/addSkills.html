@@ -1,0 +1,31 @@
+{% extends 'myAdmin/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Skills{% endblock %}
+{% block content %}
+
+
+<div class="form-con" style="display: flex; justify-content: center;">
+    <h2>
+    </h2>
+    <form method="post" enctype="multipart/form-data" style="width: 80%;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+    </form>
+</div>
+
+{% block javascript %}
+<script>
+    document.getElementById("id_name").addEventListener("keyup", createSlug);
+
+    function createSlug() {
+        var title = document.getElementById("id_name").value;
+        var slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+        document.getElementById("id_slug").value = slug;
+    }
+</script>
+{% endblock %}
+
+{% endblock %}

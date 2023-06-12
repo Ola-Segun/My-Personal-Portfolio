@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/project.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sirin+Stencil&display=swap" rel="stylesheet">
+    <title>Project</title>
+
+    <style>
+        *{
+            scroll-behavior: smooth;
+        }
+
+        .container .head-container .header-image{
+            box-shadow: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media(max-width: 820px){
+            .head-container .pro-display{
+                justify-content: center;
+                width: 100%;
+                height: fit-content;
+            }
+        
+            .header-image{
+                display: flex;
+                justify-content: center;
+                height: auto;
+                margin-bottom: 20px;
+                transition: .5s;
+            }
+        
+            .head-container{
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+        
+        @media(max-width:800px){
+            .logo-content .pro-logo{
+                justify-self: center;
+            }
+
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+
+        <div class="logo-container ">
+            <div class="logo-content">
+                <div class="pro-logo flex">
+                    {% if project_object.projectLogo %}
+                    <img src="{{ project_object.projectLogo.url }}" alt="">
+                    {% endif %}
+                    <div class="pro-logo-text">
+                        <h1>{{project_object.title}}</h1>
+                    </div>
+                </div>
+                <div class="pro-nav">
+                    <ul class="flex">
+                        <a href="{% url 'portfolioPage' %}"><li>Home<li></a>
+                        {% for body in Project_body%}
+                        <a  class="pro-links" href="#{{body.slug}}"><li>{{body.title}}</li></a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="head-container flex">
+            <div class="pro-display">
+                <div class="header-image">
+                    {% if project_object.frontPageImage %}
+                    <img src="{{ project_object.frontPageImage.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="tags flex">
+                    <h4>Tools:</h4>
+                    {% for tag in project_object.tags.all %}
+                    <div class="tag-name">{{tag.name}}</div>    
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="pro-details flex flex-row">
+                <div class="title">
+                    <h2>The {{ project_object.title }} Project</h2>
+                </div>
+                <div class="main-description">
+                    <p>{{project_object.overview}}</p>
+                </div>
+                <div class="links flex">
+                    <a href=""><h2><i class="fa-brands fa-github"></i></h2></a>
+                    <a href=""><h2><i class="fa-solid fa-link"></i></h2></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="props">
+            {% for body in Project_body%}
+            <h2 id="{{body.slug}}" class="body-header">{{ body.title }}</h2>
+            <div class="head-container flex">
+                    <div class="pro-display">
+                        {% if body.image %}
+                        <div class="header-image body-clip">
+                            <img src="{{ body.image.url }}" alt="">
+                        </div> 
+                        {% endif %}
+                    </div>
+        
+                    <div class="pro-body-details flex flex-row" >
+                        <div class="title">
+                            <h2>The {{ body.title }}</h2>
+                        </div>
+                        <div class="main-description">
+                            <p>{{ body.body }}</p>
+                        </div>
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/17d1b0692a.js" crossorigin="anonymous"></script>
+</body>
+</html>
+

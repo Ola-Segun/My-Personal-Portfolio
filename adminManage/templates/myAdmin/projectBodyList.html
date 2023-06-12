@@ -1,0 +1,42 @@
+{% extends 'myAdmin/base.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block title %}Project body{% endblock %}
+{% block content %}
+
+<style>
+  .list-con{
+    width: 70%;
+  }
+</style>
+
+<h2>Project body</h2>
+<div class="list-group w-auto" style="display:flex;">
+      {% for project in ProjectsBody %}
+        <a href="{% url 'editProjectBody' project.id %}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true" style="width: 95%;">
+          {% if project.image %}
+          <img src="{{ project.image.url }}" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+          {% endif %}
+          <div class="d-flex gap-2 w-100 justify-content-between">
+            <div>
+              <h6 class="mb-0">{{project.project}}</h6>
+              <p class="mb-0 opacity-75">{{ project.title }}</p>
+            </div>
+            <small class="opacity-50 text-nowrap">
+              {{ project.created|date }}
+            </small>
+          </div>
+        </a>
+        <a href="{% url 'deleteProjectBody' project.id %}" class="btn btn-danger" style="text-decoration: none; width: 80px; margin: 10px 0 20px 0;">Delete</a>
+      {% endfor %}
+</div>
+
+
+
+{% block javascript %}
+<script src="{% static '/assets/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'https://kit.fontawesome.com/17d1b0692a.js' %}" crossorigin="anonymous"></script>
+{% endblock %}
+{% endblock %}

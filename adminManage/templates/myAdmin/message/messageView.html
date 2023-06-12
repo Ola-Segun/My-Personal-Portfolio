@@ -1,0 +1,21 @@
+{% extends 'myAdmin/message/msgBase.html' %}
+
+
+{% block title %}Message{% endblock %}
+{% block content %}
+  <p>Name : {{message_object.name}}</p>
+  <p>Email : {{message_object.email}}</p>
+  <p>Date : {{message_object.created}}</p>
+
+  <hr>
+  <h4>Subject : {{message_object.subject}}</h4>
+  <div class="container">
+    <textarea disabled readonly class="mb-4">
+        {{message_object.body}}
+    </textarea>
+  </div>
+
+  <div class="container">
+    <a href="{% url 'deleteMessage' message_object.id %}" class="btn btn-danger">Delete</a>
+  </div>
+{% endblock %}
