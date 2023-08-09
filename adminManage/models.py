@@ -39,7 +39,7 @@ class frameWorksSkills(models.Model):
 
 
 
-class message(models.Model):
+class Adminmessage(models.Model):
     name = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     subject = models.CharField(max_length=200)
@@ -48,6 +48,7 @@ class message(models.Model):
     is_read = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+
     
     def __str__(self):
         return self.name

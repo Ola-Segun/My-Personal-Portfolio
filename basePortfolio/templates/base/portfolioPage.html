@@ -97,6 +97,9 @@
                         {% if profile.profile_picture %}
                         <img src="{{ profile.profile_picture.url }}" alt="" class="profile-picture">
                         {% endif %}
+                        {% if not profile.profile_picture %}
+                        <img src="static\images\joshua-oyebanji-LEB4O4n0IdQ-unsplash_cropped1.jpg" alt="" class="profile-picture">
+                        {% endif %}
                     </div>
 
                     <div class="grid intro">
@@ -253,3 +256,5 @@
 {% endblock %}
 </body>
 </html>
+
+

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from basePortfolio .models import project, projectBody
-from .models import message, frontEndSkills, backEndSkills, frameWorksSkills
+from .models import Adminmessage, frontEndSkills, backEndSkills, frameWorksSkills
 from . forms import CreateProjectForm, CreateProjectBodyFrom, frontEndSkillsForm, backEndSkillsForm, frameWorkSkillsForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
@@ -203,8 +203,8 @@ def toolsEdit(request):
 @login_required(login_url='login')
 def inboxPage(request):
     page_name = 'inbox'
-    inbox = message.objects.all().order_by('is_read')
-    months = message.objects.all().annotate(month=TruncMonth('created')).values('month').distinct().order_by('-month')
+    inbox = Adminmessage.objects.all().order_by('is_read')
+    months = Adminmessage.objects.all().annotate(month=TruncMonth('created')).values('month').distinct().order_by('-month')
 
     context = {'inbox':inbox,
                'months':months,
@@ -216,7 +216,7 @@ def inboxPageFilter(request, year, month):
     page='inboxFilter'
     selected_month = datetime.strptime(f'{year}-{month}', '%Y-%m')
     view = "project_list_by_month"
-    inbox = message.objects.filter(created__year=year, created__month=month).order_by('-created')    
+    inbox = Adminmessage.objects.filter(created__year=year, created__month=month).order_by('-created')    
     context = {'view' : view,
                'selected_month': selected_month,
                'inbox': inbox,
@@ -229,7 +229,7 @@ def inboxPageFilter(request, year, month):
 @login_required(login_url='login')
 def messageView(request, message_id ):
     page_name = 'message'
-    message_object = get_object_or_404(message, id=message_id)
+    message_object = get_object_or_404(Adminmessage, id=message_id)
     message_object.is_read=True
     message_object.save()
     context = {'message_object' : message_object,
@@ -244,7 +244,7 @@ def messageView(request, message_id ):
     
 @login_required(login_url='login')
 def deleteMessage(request, message_id):
-    message_body = get_object_or_404(message, id=message_id)
+    message_body = get_object_or_404(Adminmessage, id=message_id)
     if request.method == 'POST':
         message_body.delete()
         return redirect('adminHomePage')

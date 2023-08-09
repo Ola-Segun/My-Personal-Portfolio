@@ -14,7 +14,7 @@ class CreateProjectForm(ModelForm):
     class Meta:
         model = project
         fields = ['title', 'slug', 'projectLogo', 'frontPageImage', 'overview', 'status', 'category', 'tags', ]
-        # widgets = {'slug': forms.HiddenInput(),}
+        widgets = {'slug': forms.HiddenInput(),}
 
     def __init__(self, *args, **kwargs):
         super(CreateProjectForm, self).__init__(*args, **kwargs)

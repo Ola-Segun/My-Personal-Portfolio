@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import message, frameWorksSkills, frontEndSkills, backEndSkills, Profile
+from .models import Adminmessage, frameWorksSkills, frontEndSkills, backEndSkills, Profile
 
 # Register your models here.
 
@@ -27,7 +27,7 @@ class frameWorksAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-@admin.register(message)
+@admin.register(Adminmessage)
 class messageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'subject', 'id')
+    list_display = ('name', 'subject')
     prepopulated_fields = {'slug': ('subject',)}

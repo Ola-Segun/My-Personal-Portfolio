@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from adminManage.models import message
+from adminManage.models import Adminmessage
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -13,7 +13,7 @@ class LoginForm(forms.Form):
 
 class MessageForm(ModelForm):
     class Meta:
-        model = message
+        model = Adminmessage
         fields = ['name', 'subject', 'email', 'body']
         
     def __init__(self, *args, **kwargs):
